@@ -1,8 +1,16 @@
-// app/(admin)/admin/produk/page.jsx
+// src/app/(admin)/admin/produk/page.jsx
 import React from "react";
-import Link from "next/link";
+import {
+  Plus,
+  Search,
+  SlidersHorizontal,
+  Edit2,
+  Trash2,
+  ChevronLeft,
+  ChevronRight,
+  Package,
+} from "lucide-react";
 
-// Data Dummy Inventori Produk Fashion Muslim
 const INVENTORY_PRODUCTS = [
   {
     id: 1,
@@ -14,6 +22,7 @@ const INVENTORY_PRODUCTS = [
     status: "In Stock",
     image:
       "https://i.pinimg.com/736x/f3/9f/b6/f39fb6d69e7b4b66399415af67eaa758.jpg",
+    statusStyle: "text-emerald-700 bg-emerald-50/60 border-emerald-100/50",
   },
   {
     id: 2,
@@ -25,6 +34,7 @@ const INVENTORY_PRODUCTS = [
     status: "Low Stock",
     image:
       "https://i.pinimg.com/736x/07/ab/c2/07abc2ba15d09c1902ed36344903144d.jpg",
+    statusStyle: "text-amber-700 bg-amber-50/60 border-amber-100/50",
   },
   {
     id: 3,
@@ -36,6 +46,7 @@ const INVENTORY_PRODUCTS = [
     status: "In Stock",
     image:
       "https://i.pinimg.com/736x/9b/be/de/9bbede1b5a65271a53b3b1a33ea5f3be.jpg",
+    statusStyle: "text-emerald-700 bg-emerald-50/60 border-emerald-100/50",
   },
   {
     id: 4,
@@ -47,6 +58,7 @@ const INVENTORY_PRODUCTS = [
     status: "Out of Stock",
     image:
       "https://i.pinimg.com/736x/77/4d/2f/774d2fee919f347b6a2d80d25a3926b4.jpg",
+    statusStyle: "text-rose-700 bg-rose-50/60 border-rose-100/50",
   },
 ];
 
@@ -60,198 +72,147 @@ export default function AdminProduk() {
   };
 
   return (
-    <div className="space-y-8 min-h-[calc(100vh-4rem)] font-sans antialiased text-gray-800">
-      {/* 1. MANAGEMENT HEADER SECTION */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/40 pb-6">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
-            Products
-          </h2>
-          <p className="text-xs text-slate-400 font-medium mt-0.5">
-            Kelola informasi, harga, kategori, dan ketersediaan stok produk.
+    <div className="space-y-8 min-h-screen text-stone-800 antialiased selection:bg-emerald-100">
+      {/* ================= 1. LUXURY MANAGEMENT HEADER ================= */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-stone-200/40 pb-6">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-serif font-medium text-stone-900 tracking-tight">
+            Product Inventory
+          </h1>
+          <p className="text-xs text-stone-400 font-light">
+            Kelola informasi utama, kurasi harga, rumpun kategori, dan
+            ketersediaan stok drop produk.
           </p>
         </div>
 
-        {/* Tombol Tambah Produk Premium */}
-        <button className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all shadow-md shadow-emerald-600/10 self-start sm:self-auto flex items-center space-x-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-4 h-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
+        {/* Button Add Product Minimalis Premium */}
+        <button className="group inline-flex items-center justify-center gap-2 bg-stone-900 hover:bg-stone-950 text-white text-xs font-bold uppercase tracking-widest py-3.5 px-6 rounded-xl transition-all shadow-sm active:scale-98 self-start sm:self-auto">
+          <Plus className="w-4 h-4 text-stone-300 group-hover:text-white transition-colors" />
           <span>Add Product</span>
         </button>
       </div>
 
-      {/* 2. FILTER & SEARCH CONTROL CONSOLE */}
-      <div className="bg-white p-4 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.01)] border border-slate-100 flex flex-col sm:flex-row gap-3 items-center justify-between">
-        {/* Search Input */}
-        <div className="relative w-full sm:max-w-xs">
+      {/* ================= 2. CLEAN FILTER CONTROLLER CONSOLE ================= */}
+      <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-white p-4 rounded-2xl border border-stone-100/40 shadow-[0_8px_30px_rgb(0,0,0,0.01)]">
+        {/* Input Pencarian dengan Sizing Clean */}
+        <div className="relative w-full md:max-w-xs group">
           <input
             type="text"
             placeholder="Search products by name or SKU..."
-            className="w-full bg-slate-50 border border-slate-200 pl-9 pr-4 py-2 rounded-xl text-xs outline-none focus:border-emerald-600 focus:bg-white transition-all text-gray-700"
+            className="w-full bg-stone-50 border border-stone-100/80 pl-10 pr-4 py-2.5 rounded-xl text-xs outline-none focus:border-emerald-600/30 focus:bg-white focus:ring-4 focus:ring-emerald-600/5 transition-all text-stone-700"
           />
-          <span className="absolute left-3 top-2.5 text-slate-400">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-3.5 h-3.5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.603 10.601z"
-              />
-            </svg>
-          </span>
+          <Search className="w-4 h-4 text-stone-400 absolute left-3 top-3 group-focus-within:text-emerald-700 transition-colors" />
         </div>
 
-        {/* Category Filter Switcher */}
-        <div className="flex gap-2 w-full sm:w-auto text-[11px] font-semibold text-slate-500 overflow-x-auto pb-1 sm:pb-0">
-          <button className="bg-slate-900 text-white px-3 py-1.5 rounded-lg shadow-sm">
-            All
-          </button>
-          <button className="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg hover:text-slate-900 transition-colors">
-            Gamis
-          </button>
-          <button className="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg hover:text-slate-900 transition-colors">
-            Abaya
-          </button>
-          <button className="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg hover:text-slate-900 transition-colors">
-            Hijab
+        {/* Pills Tab Filter Rapi */}
+        <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0 text-xs font-semibold text-stone-400">
+          <div className="flex bg-stone-50 p-1 rounded-xl">
+            <button className="bg-white text-stone-900 shadow-sm px-4 py-1.5 rounded-lg">
+              All Drop
+            </button>
+            <button className="hover:text-stone-900 px-3 py-1.5 transition-colors">
+              Gamis
+            </button>
+            <button className="hover:text-stone-900 px-3 py-1.5 transition-colors">
+              Abaya
+            </button>
+            <button className="hover:text-stone-900 px-3 py-1.5 transition-colors">
+              Hijab
+            </button>
+          </div>
+
+          <button
+            className="p-2 border border-stone-200 hover:border-stone-400 rounded-xl transition-colors shrink-0 ml-auto md:ml-0"
+            title="Advanced Filter"
+          >
+            <SlidersHorizontal className="w-3.5 h-3.5 text-stone-500" />
           </button>
         </div>
       </div>
 
-      {/* 3. PREMIUM INVENTORY TABLE CONTAINER */}
-      <div className="bg-white rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden border border-slate-100">
+      {/* ================= 3. INVENTORY TABLE WORKSPACE ================= */}
+      <div className="bg-white rounded-2xl border border-stone-100/60 shadow-[0_8px_30px_rgb(0,0,0,0.01)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-slate-50/70 border-b border-slate-100 text-[11px] text-slate-400 font-bold uppercase tracking-wider">
-                <th className="px-6 py-4">Product Info</th>
-                <th className="px-6 py-4">SKU</th>
-                <th className="px-6 py-4">Category</th>
-                <th className="px-6 py-4">Price</th>
-                <th className="px-6 py-4">Stock Status</th>
-                <th className="px-6 py-4 text-right">Actions</th>
+              <tr className="bg-stone-50/50 border-b border-stone-100 text-[10px] text-stone-400 font-bold uppercase tracking-widest">
+                <th className="px-6 py-4.5">Product Info</th>
+                <th className="px-6 py-4.5">SKU</th>
+                <th className="px-6 py-4.5">Category</th>
+                <th className="px-6 py-4.5">Price</th>
+                <th className="px-6 py-4.5">Stock Status</th>
+                <th className="px-6 py-4.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-slate-700 font-medium">
+            <tbody className="divide-y divide-stone-50 text-stone-600 font-medium">
               {INVENTORY_PRODUCTS.map((product) => {
-                // Konfigurasi Badge Status Stok Berdasarkan Kondisi Real
-                const statusStyles = {
-                  "In Stock":
-                    "bg-emerald-50 text-emerald-700 border-emerald-200/50",
-                  "Low Stock": "bg-amber-50 text-amber-700 border-amber-200/50",
-                  "Out of Stock": "bg-rose-50 text-rose-700 border-rose-200/50",
-                }[product.status];
-
                 return (
                   <tr
                     key={product.id}
-                    className="hover:bg-slate-50/40 transition-colors group"
+                    className="hover:bg-stone-50/30 transition-all group"
                   >
-                    {/* Kolom Info Gambar & Nama */}
-                    <td className="px-6 py-4 flex items-center space-x-3">
-                      <div className="w-10 h-12 bg-slate-50 rounded-lg overflow-hidden border border-slate-100 flex-shrink-0 shadow-inner">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="max-w-[220px] sm:max-w-[300px]">
-                        <p className="font-semibold text-slate-900 truncate group-hover:text-emerald-700 transition-colors">
-                          {product.name}
-                        </p>
+                    {/* Media Thumbnail & Name Info */}
+                    <td className="px-6 py-4">
+                      <div className="flex items-center space-x-3.5">
+                        <div className="w-11 h-14 bg-stone-50 rounded-xl overflow-hidden border border-stone-100/80 flex-shrink-0 shadow-sm relative group-hover:shadow transition-shadow">
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
+                          />
+                        </div>
+                        <div className="max-w-[240px] sm:max-w-[320px]">
+                          <p className="font-semibold text-stone-800 line-clamp-2 leading-snug group-hover:text-emerald-800 transition-colors cursor-pointer">
+                            {product.name}
+                          </p>
+                        </div>
                       </div>
                     </td>
 
-                    {/* Kolom SKU (Kode Barang) */}
-                    <td className="px-6 py-4 font-mono text-slate-500 tracking-tight">
+                    {/* SKU Code */}
+                    <td className="px-6 py-4 font-mono text-stone-400 tracking-wider text-[11px]">
                       {product.sku}
                     </td>
 
-                    {/* Kolom Kategori */}
-                    <td className="px-6 py-4 text-slate-500">
+                    {/* Category Label */}
+                    <td className="px-6 py-4 text-stone-400 font-light">
                       {product.category}
                     </td>
 
-                    {/* Kolom Harga */}
-                    <td className="px-6 py-4 text-slate-900 font-semibold">
+                    {/* Pricing */}
+                    <td className="px-6 py-4 text-stone-900 font-bold font-mono tracking-tight text-sm">
                       {formatRupiah(product.price)}
                     </td>
 
-                    {/* Kolom Status Ketersediaan & Angka Stok */}
+                    {/* Status Badge & Dynamic Stock Alert */}
                     <td className="px-6 py-4">
-                      <div className="flex flex-col space-y-1 items-start">
+                      <div className="flex flex-col space-y-1.5 items-start">
                         <span
-                          className={`text-[9px] px-2 py-0.5 rounded-md font-bold border ${statusStyles}`}
+                          className={`text-[9px] px-2 py-0.5 rounded-md font-bold uppercase tracking-wider border ${product.statusStyle}`}
                         >
-                          {product.status}
+                          {product.status.replace(/ /g, "_")}
                         </span>
-                        <p className="text-[10px] text-slate-400 font-medium pl-0.5">
+                        <p className="text-[10px] text-stone-400 font-light pl-0.5 inline-flex items-center gap-1">
+                          <Package className="w-3 h-3 text-stone-300" />{" "}
                           {product.stock} Pcs available
                         </p>
                       </div>
                     </td>
 
-                    {/* Kolom Aksi Kontrol (Edit & Delete Monokrom) */}
+                    {/* Action Panel Controllers */}
                     <td className="px-6 py-4 text-right">
                       <div className="inline-flex items-center space-x-1">
-                        {/* Tombol Edit */}
                         <button
-                          className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                          className="p-2 text-stone-400 hover:text-stone-900 hover:bg-stone-50 rounded-xl transition-all border border-transparent hover:border-stone-100 active:scale-95"
                           title="Edit Product"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-4 h-4"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                            />
-                          </svg>
+                          <Edit2 className="w-3.5 h-3.5" />
                         </button>
-                        {/* Tombol Hapus */}
                         <button
-                          className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                          className="p-2 text-stone-400 hover:text-red-500 hover:bg-red-50/60 rounded-xl transition-all border border-transparent hover:border-red-100/50 active:scale-95"
                           title="Delete Product"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-4 h-4"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                            />
-                          </svg>
+                          <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </td>
@@ -262,25 +223,25 @@ export default function AdminProduk() {
           </table>
         </div>
 
-        {/* 4. DUMMY PAGINATION FOOTER */}
-        <div className="bg-slate-50/50 px-6 py-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+        {/* ================= 4. SEAMLESS PAGINATION FOOTER ================= */}
+        <div className="bg-stone-50/40 px-6 py-4 border-t border-stone-100 flex items-center justify-between text-[11px] text-stone-400 font-medium">
           <p>
             Showing{" "}
-            <span className="text-slate-700 font-semibold">
+            <span className="text-stone-700 font-semibold">
               {INVENTORY_PRODUCTS.length}
             </span>{" "}
-            of <span className="text-slate-700 font-semibold">142</span>{" "}
-            products
+            of <span className="text-stone-700 font-semibold">142</span> premium
+            drops
           </p>
-          <div className="flex space-x-1.5">
+          <div className="flex gap-2">
             <button
-              className="px-3 py-1 bg-white border border-slate-200 text-slate-600 rounded-lg shadow-sm font-semibold cursor-not-allowed"
+              className="p-2 bg-white border border-stone-200 text-stone-400 rounded-xl font-bold cursor-not-allowed opacity-50"
               disabled
             >
-              Previous
+              <ChevronLeft className="w-3.5 h-3.5" />
             </button>
-            <button className="px-3 py-1 bg-white border border-slate-200 text-slate-600 rounded-lg shadow-sm font-semibold hover:border-slate-300 transition-colors">
-              Next
+            <button className="p-2 bg-white border border-stone-200 hover:border-stone-300 text-stone-700 rounded-xl font-bold transition-all shadow-sm active:scale-95">
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>

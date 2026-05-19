@@ -4,6 +4,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  Search,
+  Heart,
+  ShoppingBag,
+  Menu,
+  X,
+  User,
+  ChevronDown,
+  LogOut,
+  ArrowUpRight,
+} from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -24,233 +35,168 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm backdrop-blur-md bg-white/95">
-      {/* ============================================================== */}
-      {/* 1. TOP BAR PENGUMUMAN DENGAN EFEK TEKS BERGERAK ELEGAN (MARQUEE EFFECT) */}
-      {/* ============================================================== */}
-      <div className="bg-emerald-950 text-white text-[10px] sm:text-xs py-2 overflow-hidden whitespace-nowrap relative flex items-center border-b border-emerald-900/40">
-        <div className="inline-block animate-marquee tracking-wide font-medium">
-          ✨ Promo Berkah Ramadhan: Gratis Ongkir Seluruh Indonesia Dengan
-          Minimal Belanja Rp 200.000! • Dapatkan Voucher Potongan Rp 25.000
-          dengan kode:{" "}
-          <span className="text-amber-400 font-bold font-mono">BERKAH25</span> •
-          Koleksi Khofifah Series Rilis Minggu Ini!
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100/80 transition-all duration-300">
+      {/* ================= 1. MARQUEE BAR PENGUMUMAN ELEGAN ================= */}
+      <div className="bg-emerald-950 text-white text-[10px] sm:text-xs py-2.5 overflow-hidden whitespace-nowrap relative flex items-center border-b border-emerald-900/20 selection:bg-amber-400 selection:text-emerald-950">
+        {/* Tambahkan style kustom inline animasi jika utilitas tailwind marquee belum diatur di config */}
+        <div className="inline-block animate-marquee tracking-widest font-medium uppercase text-[10px]">
+          ✨ Promo Berkah Ramadhan: Gratis Ongkir Seluruh Indonesia Min Belanja
+          Rp 200.000! • Dapatkan Voucher Potongan Rp 25.000 dengan kode:{" "}
+          <span className="text-amber-400 font-bold font-mono bg-white/10 px-1.5 py-0.5 rounded">
+            BERKAH25
+          </span>{" "}
+          • Koleksi Khofifah Series Rilis Minggu Ini!
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
       </div>
 
-      {/* 2. MAIN NAVBAR CONTROLLER */}
+      {/* ================= 2. MAIN NAVBAR CONTROLLER ================= */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center gap-4">
-          {/* SISI KIRI: TOMBOL HAMBURGER & LOGO */}
-          <div className="flex items-center space-x-2">
+          {/* SISI KIRI: TOMBOL MOBILE & LOGO */}
+          <div className="flex items-center space-x-3">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-gray-500 hover:text-emerald-700 hover:bg-gray-50 rounded-lg transition-colors focus:outline-none"
+              className="lg:hidden p-2 text-gray-500 hover:text-emerald-700 hover:bg-emerald-50/50 rounded-xl transition-all active:scale-95 focus:outline-none"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <X className="w-5 h-5" />
               ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  />
-                </svg>
+                <Menu className="w-5 h-5" />
               )}
             </button>
 
             <Link
               href="/"
-              className="text-xl sm:text-2xl font-bold text-emerald-700 tracking-wide font-serif"
+              className="text-xl font-serif font-bold tracking-wider text-emerald-800 hover:opacity-90 transition-opacity"
             >
               Al-Kahfi<span className="text-amber-500">.</span>
             </Link>
           </div>
 
-          {/* SISI TENGAH A: MENU NAVIGASI UTAMA */}
-          <div className="hidden lg:flex space-x-6">
+          {/* SISI TENGAH A: MENU NAVIGASI DESKTOP */}
+          <div className="hidden lg:flex items-center space-x-8">
             {navigationMenus.map((menu) => {
               const active = isActiveMenu(menu.path);
               return (
                 <Link
                   key={menu.path}
                   href={menu.path}
-                  className={`text-xs uppercase tracking-wider font-semibold border-b-2 pb-1 transition-all ${
+                  className={`text-[11px] uppercase tracking-widest font-bold relative py-1 transition-all duration-300 group ${
                     active
-                      ? "text-emerald-700 border-emerald-600"
-                      : "text-gray-500 border-transparent hover:text-emerald-600"
+                      ? "text-emerald-700"
+                      : "text-gray-400 hover:text-emerald-600"
                   }`}
                 >
                   {menu.name}
+                  {/* Efek Garis Hover Pinterest-Style */}
+                  <span
+                    className={`absolute bottom-0 left-0 h-[2px] bg-emerald-600 transition-all duration-300 ${
+                      active ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
                 </Link>
               );
             })}
           </div>
 
-          {/* SISI TENGAH B: BAR PENCARIAN MINIMALIS */}
-          <div className="flex-1 max-w-xs md:max-w-md hidden sm:block">
-            <div className="relative">
+          {/* SISI TENGAH B: BAR PENCARIAN CLEAN MODERN */}
+          <div className="flex-1 max-w-xs md:max-w-sm hidden sm:block">
+            <div className="relative group">
               <input
                 type="text"
                 placeholder="Cari gamis premium, hijab instan..."
-                className="w-full bg-gray-50 border border-gray-200 text-gray-700 pl-4 pr-10 py-2 rounded-xl text-xs outline-none focus:border-emerald-600 focus:bg-white transition-all"
+                className="w-full bg-gray-50/80 border border-gray-100 text-gray-700 pl-10 pr-4 py-2 rounded-xl text-xs outline-none focus:border-emerald-600/30 focus:bg-white focus:ring-4 focus:ring-emerald-600/5 transition-all duration-300"
               />
-              <span className="absolute right-3 top-2.5 cursor-pointer text-gray-400 hover:text-emerald-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="w-4 h-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.603 10.601z"
-                  />
-                </svg>
+              <span className="absolute left-3 top-2.5 text-gray-400 group-focus-within:text-emerald-600 transition-colors">
+                <Search className="w-4 h-4 stroke-[2.2]" />
               </span>
             </div>
           </div>
 
-          {/* SISI KANAN: UTILITY MENU */}
-          <div className="flex items-center space-x-1 sm:space-x-4">
+          {/* SISI KANAN: UTILITY CONTROLS */}
+          <div className="flex items-center space-x-1 sm:space-x-3">
             <Link
               href="/admin"
-              className="hidden md:inline-block text-[10px] bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/60 px-2.5 py-1.5 rounded-lg font-medium transition-colors"
+              className="hidden md:inline-flex items-center gap-1 text-[10px] uppercase tracking-wider bg-stone-50 hover:bg-stone-100 text-stone-600 border border-stone-200/60 px-3 py-2 rounded-xl font-bold transition-all hover:border-stone-300"
             >
-              Admin View ↗
+              Admin <ArrowUpRight className="w-3 h-3" />
             </Link>
 
-            {/* Menu Ikon 1: Wishlist */}
-            <button className="text-gray-500 hover:text-red-500 p-2 transition-colors relative group">
-              <span className="sr-only">Favorit</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.8}
-                stroke="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                />
-              </svg>
-              <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center px-1.5 py-0.5 text-[9px] font-bold leading-none text-white bg-red-500 rounded-full">
+            {/* Wishlist Icon */}
+            <button className="text-gray-400 hover:text-red-500 p-2 rounded-xl hover:bg-gray-50 transition-all relative active:scale-95">
+              <Heart className="w-5 h-5 stroke-[2]" />
+              <span className="absolute top-1 right-1 inline-flex items-center justify-center min-w-[14px] h-[14px] px-1 text-[8px] font-bold leading-none text-white bg-red-500 rounded-full shadow-sm">
                 4
               </span>
             </button>
 
-            {/* Menu Ikon 2: Keranjang Belanja */}
+            {/* Shopping Bag Icon */}
             <Link
               href="/keranjang"
-              className="text-gray-500 hover:text-emerald-700 p-2 transition-colors relative group block"
+              className="text-gray-400 hover:text-emerald-700 p-2 rounded-xl hover:bg-gray-50 transition-all relative block active:scale-95"
             >
-              <span className="sr-only">Keranjang</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.8}
-                stroke="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"
-                />
-              </svg>
-              <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center px-1.5 py-0.5 text-[9px] font-bold leading-none text-white bg-emerald-600 rounded-full">
+              <ShoppingBag className="w-5 h-5 stroke-[2]" />
+              <span className="absolute top-1 right-1 inline-flex items-center justify-center min-w-[14px] h-[14px] px-1 text-[8px] font-bold leading-none text-white bg-emerald-600 rounded-full shadow-sm">
                 2
               </span>
             </Link>
 
-            <div className="h-5 w-px bg-gray-200 mx-1" />
+            <div className="h-5 w-px bg-gray-100 mx-1 hidden sm:block" />
 
-            {/* Menu Akun 3: Profil Pengguna */}
-            <div className="flex items-center space-x-2 group cursor-pointer relative py-2">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-100 border border-emerald-200 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 shadow-sm">
+            {/* Profile Menu Dropdown */}
+            <div className="flex items-center space-x-1.5 group cursor-pointer relative py-2 pl-1 select-none">
+              <div className="w-8 h-8 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center overflow-hidden transition-all group-hover:border-emerald-300 group-hover:scale-102 shadow-inner">
                 <span className="font-bold text-xs text-emerald-800">RS</span>
               </div>
-              <div className="hidden lg:block text-left">
-                <p className="text-[10px] text-gray-400 leading-none">
-                  Selamat datang,
-                </p>
-                <p className="text-xs font-semibold text-gray-700 mt-0.5 max-w-[80px] truncate">
-                  Rohmat Sidiq
-                </p>
-              </div>
+              <ChevronDown className="w-3.5 h-3.5 text-gray-400 group-hover:text-gray-600 transition-transform duration-300 group-hover:rotate-180 hidden sm:block" />
 
-              {/* DROPDOWN MENU DESKTOP */}
-              <div className="absolute right-0 top-12 w-48 bg-white border border-gray-100 rounded-xl shadow-xl py-2 opacity-0 group-hover:opacity-100 transition-all invisible group-hover:visible z-50">
-                <div className="px-4 py-2 border-b border-gray-50">
-                  <p className="text-xs font-semibold text-gray-800">
-                    Akun Saya
+              {/* DROPDOWN CARD (Premium Clean Floating Vibe) */}
+              <div className="absolute right-0 top-14 w-52 bg-white/95 backdrop-blur-md border border-gray-100 rounded-2xl shadow-xl shadow-gray-200/40 py-2 opacity-0 group-hover:opacity-100 transition-all duration-300 invisible group-hover:visible z-50 translate-y-2 group-hover:translate-y-0">
+                <div className="px-4 py-2.5 border-b border-gray-50">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    Logged In As
                   </p>
-                  <p className="text-[10px] text-gray-400 truncate">
-                    rohmat@example.com
+                  <p className="text-xs font-semibold text-gray-800 mt-0.5 truncate">
+                    Rohmat Sidiq
                   </p>
                 </div>
-                <Link
-                  href="#"
-                  className="block px-4 py-2 text-xs text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
-                >
-                  Detail Profil
-                </Link>
-                <Link
-                  href="#"
-                  className="block px-4 py-2 text-xs text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
-                >
-                  Riwayat Pesanan
-                </Link>
-                <div className="border-t border-gray-50 my-1" />
-                <button className="w-full text-left px-4 py-2 text-xs text-red-500 hover:bg-red-50 transition-colors">
-                  Keluar Aplikasi
-                </button>
+                <div className="p-1 space-y-0.5">
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-gray-600 hover:bg-gray-50 hover:text-emerald-700 transition-colors"
+                  >
+                    <User className="w-3.5 h-3.5" /> Detail Profil
+                  </Link>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-gray-600 hover:bg-gray-50 hover:text-emerald-700 transition-colors"
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5" /> Riwayat Pesanan
+                  </Link>
+                  <div className="border-t border-gray-50 my-1 mx-2" />
+                  <button className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-xl text-xs text-red-500 hover:bg-red-50/60 transition-colors font-medium">
+                    <LogOut className="w-3.5 h-3.5" /> Keluar Aplikasi
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3. MENU DROPDOWN MOBILE */}
+      {/* ================= 3. MENU NAVIGASI MOBILE (Gaya Slide-In Ringan) ================= */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 px-4 py-3 space-y-2 shadow-inner">
-          <div className="relative mb-3 block sm:hidden">
+        <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 px-4 py-4 space-y-3 shadow-inner animate-fade-in">
+          {/* Search Bar Mobile */}
+          <div className="relative block sm:hidden">
             <input
               type="text"
-              placeholder="Cari gamis premium..."
-              className="w-full bg-gray-50 border border-gray-200 text-gray-700 pl-4 pr-10 py-2 rounded-xl text-xs outline-none"
+              placeholder="Cari produk impianmu..."
+              className="w-full bg-gray-50 border border-gray-100 text-gray-700 pl-10 pr-4 py-2.5 rounded-xl text-xs outline-none"
             />
-            <span className="absolute right-3 top-2.5 text-gray-400">🔍</span>
+            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
           </div>
 
           <div className="flex flex-col space-y-1">
@@ -261,9 +207,9 @@ export default function Navbar() {
                   key={menu.path}
                   href={menu.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`px-3 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider block transition-all ${
+                  className={`px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-widest block transition-all ${
                     active
-                      ? "bg-emerald-50 text-emerald-700 font-bold"
+                      ? "bg-emerald-50 text-emerald-800"
                       : "text-gray-600 hover:bg-gray-50 hover:text-emerald-600"
                   }`}
                 >
@@ -273,13 +219,13 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="pt-2 border-t border-gray-50">
+          <div className="pt-3 border-t border-gray-100">
             <Link
               href="/admin"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block text-center text-xs bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/60 py-2.5 rounded-xl font-medium"
+              className="flex items-center justify-center gap-1.5 text-center text-xs bg-stone-50 hover:bg-stone-100 text-stone-600 border border-stone-200/60 py-3 rounded-xl font-bold uppercase tracking-wider transition-all"
             >
-              Masuk Dashboard Admin View ↗
+              Masuk Dashboard Admin <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
