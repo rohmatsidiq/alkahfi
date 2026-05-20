@@ -14,10 +14,13 @@ import {
   ShoppingBag,
   ThumbsUp,
   ChevronRight,
+  Copy,
+  Check,
 } from "lucide-react";
 
 const ALL_GAMIS_DATA = {
   1: {
+    id: 1,
     name: "Gamis Silk Premium Medina (Emerald Green)",
     price: 385000,
     rating: 5,
@@ -38,6 +41,7 @@ const ALL_GAMIS_DATA = {
     ],
   },
   2: {
+    id: 2,
     name: "Gamis Abaya Malikah Bordir Komputer (Jetblack)",
     price: 450000,
     rating: 5,
@@ -121,12 +125,25 @@ export default function DetailGamis({ params }) {
   const [currentImage, setCurrentImage] = useState(product.images[0]);
   const [isWishlisted, setIsWishlisted] = useState(false);
 
+  // 🌟 STATE UNTUK TRACKING SALIN LINK AFILIASI
+  const [isCopied, setIsCopied] = useState(false);
+
+  // Variabel Kupon & URL Afiliasi Resmi Mas Rohmat
+  const AFFILIATE_CODE = "KAHFI-ROHMAT2026";
+  const generatedAffiliateUrl = `https://alkahfistore.com/gamis/${product.id}?ref=${AFFILIATE_CODE}`;
+
   const formatRupiah = (value) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
       minimumFractionDigits: 0,
     }).format(value);
+  };
+
+  const handleCopyAffiliateLink = () => {
+    navigator.clipboard.writeText(generatedAffiliateUrl);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
   };
 
   return (
@@ -142,7 +159,7 @@ export default function DetailGamis({ params }) {
             Gamis
           </a>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-gray-900 font-bold max-w-[240px] truncate">
+          <span className="text-gray-900 font-bold max-w-60 truncate">
             {product.name}
           </span>
         </nav>
@@ -151,7 +168,7 @@ export default function DetailGamis({ params }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* SISI KIRI: MEDIA GALLERY COMPONENT (5 Kolom) */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="aspect-[3/4] bg-gray-50 rounded-2xl overflow-hidden relative border border-gray-100">
+            <div className="aspect-3/4 bg-gray-50 rounded-2xl overflow-hidden relative border border-gray-100">
               <img
                 src={currentImage}
                 alt={product.name}
@@ -173,7 +190,7 @@ export default function DetailGamis({ params }) {
                   <button
                     key={index}
                     onClick={() => setCurrentImage(img)}
-                    className={`w-20 h-24 rounded-xl overflow-hidden bg-gray-50 flex-shrink-0 border-2 transition-all duration-200 ${
+                    className={`w-20 h-24 rounded-xl overflow-hidden bg-gray-50 shrink-0 border-2 transition-all duration-200 ${
                       currentImage === img
                         ? "border-emerald-700 shadow-sm scale-98"
                         : "border-gray-100 hover:border-gray-300"
@@ -234,6 +251,49 @@ export default function DetailGamis({ params }) {
               </p>
             </div>
 
+            {/* ============================================================== */}
+            {/* 🌟 INTEGRATED PREMIUM AFFILIATE SHARE PANEL                   */}
+            {/* ============================================================== */}
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2.5 shadow-inner">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+                  <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+                    Affiliate Promoter Toolkit
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-slate-500 bg-white border border-slate-200 px-2 py-0.5 rounded-md">
+                  Est. Komisi 10%: {formatRupiah(product.price * 0.1)}
+                </span>
+              </div>
+
+              <div className="flex items-center bg-white border border-slate-200 rounded-xl p-1.5 pl-3 justify-between gap-4 shadow-sm">
+                <p className="text-[11px] font-mono text-slate-400 truncate font-semibold select-all">
+                  {generatedAffiliateUrl}
+                </p>
+                <button
+                  onClick={handleCopyAffiliateLink}
+                  className={`inline-flex cursor-pointer items-center space-x-1.5 text-xs font-bold px-3.5 py-2 rounded-lg transition-all tracking-tight shrink-0 shadow-sm ${
+                    isCopied
+                      ? "bg-emerald-600 text-white shadow-emerald-500/10"
+                      : "bg-slate-900 hover:bg-slate-800 text-white shadow-slate-950/5"
+                  }`}
+                >
+                  {isCopied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copy Aff Link</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
             {/* Sizing Section */}
             <div className="space-y-2.5">
               <div className="flex justify-between items-center text-xs font-semibold text-gray-700">
@@ -247,7 +307,7 @@ export default function DetailGamis({ params }) {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`min-w-[52px] h-11 rounded-xl border font-bold transition-all duration-300 ${
+                    className={`min-w-13 h-11 rounded-xl border font-bold transition-all duration-300 ${
                       selectedSize === size
                         ? "border-emerald-700 bg-emerald-50 text-emerald-800 shadow-sm scale-98"
                         : "border-gray-200 text-gray-500 hover:border-gray-400 bg-white"
@@ -315,10 +375,10 @@ export default function DetailGamis({ params }) {
 
             {/* Call To Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 pt-2 text-xs font-bold uppercase tracking-widest">
-              <button className="flex-1 bg-emerald-700 hover:bg-emerald-800 text-white py-4 px-6 rounded-xl transition-all shadow-md shadow-emerald-800/10 active:scale-98">
+              <button className="flex-1 cursor-pointer bg-emerald-700 hover:bg-emerald-800 text-white py-4 px-6 rounded-xl transition-all shadow-md shadow-emerald-800/10 active:scale-98">
                 Beli Langsung
               </button>
-              <button className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 bg-stone-900 hover:bg-stone-950 text-white py-4 px-8 rounded-xl transition-all shadow-sm active:scale-98">
+              <button className="flex-1 cursor-pointer sm:flex-none inline-flex items-center justify-center gap-2 bg-stone-900 hover:bg-stone-950 text-white py-4 px-8 rounded-xl transition-all shadow-sm active:scale-98">
                 <ShoppingBag className="w-4 h-4 shrink-0" /> Add To Bag
               </button>
             </div>
@@ -330,21 +390,13 @@ export default function DetailGamis({ params }) {
           <div className="flex border-b border-gray-100 text-xs sm:text-sm font-bold uppercase tracking-wider mb-6">
             <button
               onClick={() => setActiveTab("deskripsi")}
-              className={`pb-3 pr-8 border-b-2 transition-all ${
-                activeTab === "deskripsi"
-                  ? "border-emerald-700 text-emerald-800"
-                  : "border-transparent text-gray-400 hover:text-gray-600"
-              }`}
+              className={`pb-3 pr-8 border-b-2 transition-all ${activeTab === "deskripsi" ? "border-emerald-700 text-emerald-800" : "border-transparent text-gray-400 hover:text-gray-600"}`}
             >
               Deskripsi Produk
             </button>
             <button
               onClick={() => setActiveTab("fitur")}
-              className={`pb-3 pr-8 border-b-2 transition-all ${
-                activeTab === "fitur"
-                  ? "border-emerald-700 text-emerald-800"
-                  : "border-transparent text-gray-400 hover:text-gray-600"
-              }`}
+              className={`pb-3 pr-8 border-b-2 transition-all ${activeTab === "fitur" ? "border-emerald-700 text-emerald-800" : "border-transparent text-gray-400 hover:text-gray-600"}`}
             >
               Karakteristik Kain
             </button>
@@ -476,7 +528,7 @@ export default function DetailGamis({ params }) {
                 key={item.id}
                 className="bg-white border border-gray-100 rounded-2xl p-3.5 flex items-center space-x-4 hover:border-transparent hover:shadow-xl hover:shadow-gray-100/70 transition-all duration-300 group relative"
               >
-                <div className="w-20 h-24 bg-gray-50 rounded-xl overflow-hidden flex-shrink-0 border border-gray-50">
+                <div className="w-20 h-24 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-50">
                   <img
                     src={item.img}
                     alt={item.name}

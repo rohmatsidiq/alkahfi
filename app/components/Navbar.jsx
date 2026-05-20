@@ -14,6 +14,7 @@ import {
   ChevronDown,
   LogOut,
   ArrowUpRight,
+  Network,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -83,7 +84,7 @@ export default function Navbar() {
                 <Link
                   key={menu.path}
                   href={menu.path}
-                  className={`text-[11px] uppercase tracking-widest font-bold relative py-1 transition-all duration-300 group ${
+                  className={`text-[14px] tracking-widest font-bold relative py-1 transition-all duration-300 group ${
                     active
                       ? "text-emerald-700"
                       : "text-gray-400 hover:text-emerald-600"
@@ -92,7 +93,7 @@ export default function Navbar() {
                   {menu.name}
                   {/* Efek Garis Hover Pinterest-Style */}
                   <span
-                    className={`absolute bottom-0 left-0 h-[2px] bg-emerald-600 transition-all duration-300 ${
+                    className={`absolute bottom-0 left-0 h-0.5 bg-emerald-600 transition-all duration-300 ${
                       active ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   />
@@ -126,8 +127,8 @@ export default function Navbar() {
 
             {/* Wishlist Icon */}
             <button className="text-gray-400 hover:text-red-500 p-2 rounded-xl hover:bg-gray-50 transition-all relative active:scale-95">
-              <Heart className="w-5 h-5 stroke-[2]" />
-              <span className="absolute top-1 right-1 inline-flex items-center justify-center min-w-[14px] h-[14px] px-1 text-[8px] font-bold leading-none text-white bg-red-500 rounded-full shadow-sm">
+              <Heart className="w-5 h-5 stroke-2" />
+              <span className="absolute top-1 right-1 inline-flex items-center justify-center min-w-3.5 h-3.5 px-1 text-[8px] font-bold leading-none text-white bg-red-500 rounded-full shadow-sm">
                 4
               </span>
             </button>
@@ -137,8 +138,8 @@ export default function Navbar() {
               href="/keranjang"
               className="text-gray-400 hover:text-emerald-700 p-2 rounded-xl hover:bg-gray-50 transition-all relative block active:scale-95"
             >
-              <ShoppingBag className="w-5 h-5 stroke-[2]" />
-              <span className="absolute top-1 right-1 inline-flex items-center justify-center min-w-[14px] h-[14px] px-1 text-[8px] font-bold leading-none text-white bg-emerald-600 rounded-full shadow-sm">
+              <ShoppingBag className="w-5 h-5 stroke-2" />
+              <span className="absolute top-1 right-1 inline-flex items-center justify-center min-w-3.5 h-3.5 px-1 text-[8px] font-bold leading-none text-white bg-emerald-600 rounded-full shadow-sm">
                 2
               </span>
             </Link>
@@ -174,6 +175,12 @@ export default function Navbar() {
                     className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-gray-600 hover:bg-gray-50 hover:text-emerald-700 transition-colors"
                   >
                     <ShoppingBag className="w-3.5 h-3.5" /> Riwayat Pesanan
+                  </Link>
+                  <Link
+                    href="/affiliator"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-gray-600 hover:bg-gray-50 hover:text-emerald-700 transition-colors"
+                  >
+                    <Network className="w-3.5 h-3.5" /> Affiliator
                   </Link>
                   <div className="border-t border-gray-50 my-1 mx-2" />
                   <button className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-xl text-xs text-red-500 hover:bg-red-50/60 transition-colors font-medium">
